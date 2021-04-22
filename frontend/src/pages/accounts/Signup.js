@@ -6,13 +6,13 @@ import Axios from 'axios';
 
 const Signup = () => {
     const history = useHistory();
-    const [fieldsErrors, setFieldsErrors] = useState({});
+    const [fieldErrors, setFieldErrors] = useState({});
 
     const onFinish = values => {
         async function fn() {
             const {username, password} = values
 
-            setFieldsErrors({});
+            setFieldErrors({});
 
             const data = {username, password}
             try {
@@ -31,7 +31,7 @@ const Signup = () => {
                         icon: <FrownOutlined style={{ color: "#ff3333"}}/>
                     })
                     const {data: fieldsErrorMessages} = error.response;
-                    setFieldsErrors(
+                    setFieldErrors(
                         Object.entries(fieldsErrorMessages).reduce((acc, [fieldName, errors]) => {
                             acc[fieldName] = {
                                 validateStatus: "error",
@@ -62,7 +62,7 @@ const Signup = () => {
                     {min: 5, message: '5글자 이상 써 주세요'}
                 ]}
                 hasFeedback
-                {...fieldsErrors.username}
+                {...fieldErrors.username}
             >
                 <Input/>
             </Form.Item>
@@ -72,7 +72,7 @@ const Signup = () => {
                 name="password"
                 rules={[{required: true, message: 'Please input your password!'}]}
                 hasFeedback
-                {...fieldsErrors.password}
+                {...fieldErrors.password}
             >
                 <Input.Password/>
             </Form.Item>
