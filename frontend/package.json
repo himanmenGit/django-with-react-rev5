@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.15.1",
     "axios": "^0.21.1",
+    "axios-hooks": "^2.6.1",
     "eslint": "^7.24.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
