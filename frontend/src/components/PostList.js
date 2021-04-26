@@ -25,7 +25,8 @@ function PostList() {
     }, [])
     return (
         <div>
-            {postList.length === 0 &&
+            {
+                postList.length === 0 &&
                 <Alert type='warning' message="포스팅이 없습니다." />
             }
             {postList.map((post) => {

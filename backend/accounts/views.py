@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny
-from .serializers import SignupSerializer
+from .serializers import SignupSerializer, SuggestionUserSerializer
 
 User = get_user_model()
 
@@ -12,4 +12,8 @@ class SignupView(CreateAPIView):
     permission_classes = [
         AllowAny
     ]
-    pass
+
+
+class SuggestionListAPIView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = SuggestionUserSerializer
