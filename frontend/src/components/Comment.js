@@ -11,7 +11,7 @@ const Comment = ({comment}) => {
             author={displayName}
             avatar={
                 <Avatar
-                    src={"http://localhost:8000" + avatar_url}
+                    src={avatar_url}
                     alt={displayName}
                 />
             }

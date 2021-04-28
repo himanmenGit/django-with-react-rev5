@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Alert} from 'antd'
-import Axios from 'axios'
-import useAxios from "axios-hooks";
+import {axiosInstance, useAxios} from "../api";
 import Post from './Post'
 import {useAppContext} from "store";
 
@@ -11,7 +10,7 @@ function PostList() {
 
     const headers = {Authorization: `JWT ${jwtToken}`}
     const [{data: originPostList, loading, error}, refetch] = useAxios({
-        url: "http://localhost:8000/api/posts/",
+        url: "/api/posts/",
         headers
     });
 
@@ -20,11 +19,11 @@ function PostList() {
     }, [originPostList])
 
     const handleLike = async ({post, isLike}) => {
-        const apiUrl = `http://localhost:8000/api/posts/${post.id}/like/`
+        const apiUrl = `/api/posts/${post.id}/like/`
         const method = isLike ? "POST" : "DELETE"
 
         try {
-            const response = await Axios({
+            const response = await axiosInstance({
                 url: apiUrl,
                 method,
                 headers

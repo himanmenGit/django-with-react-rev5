@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import {Avatar, Input, Button, Tooltip} from "antd";
-import useAxios from "axios-hooks";
-import Axios from 'axios'
+import {Input, Button, Tooltip} from "antd";
+import {axiosInstance, useAxios} from "../api";
 import {useAppContext} from "../store";
 import Comment from "./Comment";
 
@@ -12,14 +11,14 @@ const CommentList = ({post}) => {
     const [commentContent, setCommentContent] = useState("");
 
     const [{data: commentList, loading, error}, refetch] = useAxios({
-        url: `http://localhost:8000/api/posts/${post.id}/comments/`,
+        url: `/api/posts/${post.id}/comments/`,
         headers
     });
 
     const handleCommentSave = async () => {
-        const apiUrl = `http://localhost:8000/api/posts/${post.id}/comments/`;
+        const apiUrl = `/api/posts/${post.id}/comments/`;
         try {
-            const response = await Axios.post(
+            const response = await axiosInstance.post(
                 apiUrl,
                 {message: commentContent},
                 {headers}
