@@ -4,6 +4,7 @@ import {SmileOutlined, FrownOutlined} from "@ant-design/icons"
 import {useHistory, useLocation} from 'react-router-dom';
 import Axios from 'axios';
 import {setToken, useAppContext} from "store"
+import {parseErrorsMessages} from "../../utils/forms";
 
 function Login() {
     const {dispatch} = useAppContext();
@@ -11,7 +12,7 @@ function Login() {
     const history = useHistory();
     const [fieldErrors, setFieldErrors] = useState({})
 
-    const {from: loginRedirectUrl} = location.state || { from: { pathname: "/"}};
+    const {from: loginRedirectUrl} = location.state || {from: {pathname: "/"}};
 
     const onFinish = (values) => {
         async function fn() {
@@ -39,15 +40,7 @@ function Login() {
                         icon: <FrownOutlined style={{color: "#ff3333"}}/>
                     })
                     const {data: fieldsErrorMessages} = error.response;
-                    setFieldErrors(
-                        Object.entries(fieldsErrorMessages).reduce((acc, [fieldName, errors]) => {
-                            acc[fieldName] = {
-                                validateStatus: "error",
-                                help: errors.join(" ")
-                            };
-                            return acc;
-                        }, {})
-                    )
+                    setFieldErrors(parseErrorsMessages(fieldsErrorMessages));
                 }
             }
         }
